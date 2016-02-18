@@ -1,0 +1,19 @@
+CREATE DATABASE IF NOT EXISTS angular_demo;
+
+USE angular_demo;
+
+--
+-- Table structure for table `user`
+--
+
+CREATE TABLE IF NOT EXISTS `user` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(50) NOT NULL,
+  `email` VARCHAR(50) NOT NULL,
+  `phone` VARCHAR(100) NOT NULL,
+  `password` VARCHAR(200) NOT NULL,
+  `address` VARCHAR(50) NOT NULL,
+  `created` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=INNODB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
