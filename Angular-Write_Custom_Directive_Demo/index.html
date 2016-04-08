@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html ng-app="Main">
+	<head>
+		<script type="text/javascript" src="vender/js/jquery.js"></script>
+
+		<script type="text/javascript" src="vender/js/bootstrap.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="vender/css/bootstrap.css">
+		<link rel="stylesheet" type="text/css" href="vender/css/bootstrap.min.css.map">
+
+		<script type="text/javascript" src="vender/js/bootstrap-datepicker.js"></script>
+		<link rel="stylesheet" type="text/css" href="vender/css/bootstrap-datepicker3.css">
+
+		<link rel="stylesheet" type="text/css" href="assets/css/app.css">
+		
+		<!-- Angular Js -->
+		<script type="text/javascript" src="vender/js/angular.min.js"></script>
+		<script type="text/javascript" src="vender/js/angular-route.min.js"></script>
+		
+		<!-- Font-Awesome -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+		<title>Angular App</title>
+	</head>
+	<body ng-controller="AppController">
+		<div class="container">
+			<nav class="navbar navbar-light bg-faded">
+			  <a class="navbar-brand" href="#/">Flapper Store</a>
+			  <ul class="nav navbar-nav">
+			    <li class="nav-item" ng-class="{active : isActive('/stores') || isActive('/stores/' + $routeParams.id)}">
+			      <a class="nav-link" href="#/stores">Store <span class="sr-only">(current)</span></a>
+			    </li>
+			  </ul>
+			</nav>
+			<div class="invisible">...</div>
+
+			<div class="main-wrapper">
+				<div ng-view></div>
+			</div>
+
+			<footer>
+				<div class="row">
+					<hr />
+					<div class="col-md-12">
+						<ul class="list-inline">
+							<li><a href="#/">Home</a></li>
+							<li><a href="#/">Policy</a></li>
+							<li class="pull-right"><a href>2015-2016</a></li>
+							<li class="pull-right"><a href>&copy</a></li>
+						</ul>
+					</div>
+				</div>
+			</footer>
+		</div>
+	
+		
+		<script type="text/javascript" src="assets/js/routes.js"></script>
+		<!-- Controllers -->
+		<script type="text/javascript" src="assets/js/app.js"></script>
+		<script type="text/javascript" src="assets/js/controllers/store_controller.js"></script>
+		<script type="text/javascript" src="assets/js/controllers/review_controller.js"></script>
+	</body>
+</html>

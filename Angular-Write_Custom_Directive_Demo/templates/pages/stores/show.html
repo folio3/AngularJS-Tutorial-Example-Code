@@ -1,0 +1,131 @@
+<div class="row">
+	<div class="col-md-9">
+		<h3>
+			<strong>{{product["name"]}}</strong>
+			<strong class="pull-right">{{product["price"] | currency}}</strong>
+		</h3>
+		<p>{{product["description"]}}</p>
+		<hr />
+
+		<section ng-controller="PanelController as panel">
+			<ul class="nav nav-pills">
+			  <li class="nav-item">
+			    <a ng-class="{ active:panel.isSelected(1) }" class="nav-link" href ng-click="panel.selectTab(1)">Description</a>
+			  </li>
+			  <li class="nav-item">
+			    <a ng-class="{ active:panel.isSelected(2) }" class="nav-link" href ng-click="panel.selectTab(2)">Specifications</a>
+			  </li>
+			  <li class="nav-item">
+			    <a ng-class="{ active:panel.isSelected(3) }" class="nav-link" href ng-click="panel.selectTab(3)">Reviews</a>
+			  </li>
+			</ul>
+			<br /><br />
+			<div class="panel" ng-show="panel.isSelected(1)">
+				<blockquote>
+					<h4>Description</h4>
+					<p>{{product["description"]}}</p>
+				</blockquote>
+			</div>
+			<div class="panel" ng-show="panel.isSelected(2)">
+				<blockquote>
+					<h4>Specifications</h4>
+					<ul>
+						<li><strong>Material Type:</strong> {{product["specifications"][0]["materialType"]}}</li>
+						<li><strong>Color:</strong> {{product["specifications"][0]["color"]}}</li>
+						<li><strong>Weight:</strong> {{product["specifications"][0]["weight"]}}</li>
+					</ul>
+				</blockquote>
+			</div>
+			<div class="panel" ng-show="panel.isSelected(3)">
+                <blockquote>
+                    <h4>Reviews</h4>
+                    <p ng-show="product['reviews'].length === 0">Not yet updated</p>
+                    <div ng-hide="product['reviews'].length === 0" class="list-group" ng-repeat="review in product.reviews | orderBy:'-stars'">
+                        <a href class="list-group-item" ng-class="{'active' : review.stars === panel.highlyRated(product.reviews)}">
+                            <h4 class="list-group-item-heading">
+                                <i class="fa" ng-class="panel.ratings(review.stars)"></i> {{review.stars}}
+                                <ng-pluralize count="review.stars" when="{'1': 'Star', 'other': 'Stars'}"></ng-pluralize>
+                            </h4>
+                            <p class="list-group-item-text">{{review.comment}}</p>
+                            <p class="list-group-item-text pull-right">
+                                <cite>{{review.author}}</cite>
+                            </p>
+                            <br >
+                            <p class="list-group-item-text pull-right">
+                              <cite>{{review.birthday}}</cite>
+                            </p>
+                            <br />
+                        </a>
+                        <hr />
+                    </div>
+                </blockquote>
+                <form name="reviewForm" ng-controller="ReviewController as reviewCtrl" ng-submit="reviewCtrl.addReview(product, reviewForm)" novalidate>
+                    <div ng-if="reviewCtrl.review.stars">
+                        <a href class="list-group-item">
+                            <h4 class="list-group-item-heading">
+                                <i class="fa" ng-class="panel.ratings(reviewCtrl.review.stars)"></i> {{reviewCtrl.review.stars}}
+                                <ng-pluralize count="new_review.stars" when="{'1': 'Star', 'other': 'Stars'}"></ng-pluralize>
+                            </h4>
+                            <p class="list-group-item-text">{{reviewCtrl.review.comment}}</p>
+                            <p class="list-group-item-text pull-right">
+                                <cite>{{reviewCtrl.review.author}}</cite>
+                            </p>
+                            <br />
+                            <p class="list-group-item-text pull-right">
+                              <cite>{{reviewCtrl.review.birthday}}</cite>
+                            </p>
+                            <br />
+                        </a>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h4>How do you want to rate?</h4>
+                            <fieldset class="form-group">
+                                <select class="form-control" ng-model="reviewCtrl.review.stars" required>
+                                    <option value="">--How do you want to rate?--</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10">10</option>
+                                </select>
+                            </fieldset>
+                            <fieldset class="form-group">
+                                <textarea class="form-control" required ng-model="reviewCtrl.review.comment"></textarea>
+                            </fieldset>
+                            <fieldset>
+                              <input
+                                      type="text"
+                                      required
+                                      date-picker
+                                      startdate="1990-01-01"
+                                      enddate="2030-01-01"
+                                      today_btn="true"
+                                      format="yyyy-mm-dd"
+                                      id="dateEdit"
+                                      placeholder="Date of birth"
+                                      data-ng-model="reviewCtrl.review.birthday" class="form-control">
+                            </fieldset>
+                            <fieldset class="form-group">
+                                <label>By:</label>
+                                <input type="email" required class="form-control" ng-model="reviewCtrl.review.author" />
+                            </fieldset>
+                            <input type="submit" class="btn btn-info" value="Submit" />
+                        </div>
+                    </div>
+                </form>
+				
+			</div>
+		</section>
+	</div>
+	<div class="col-md-3">
+		<img src="{{product['image']}}" class="img-thumbnail">
+	</div>
+</div>
+

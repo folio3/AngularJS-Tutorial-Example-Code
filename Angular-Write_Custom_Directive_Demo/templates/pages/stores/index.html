@@ -1,0 +1,36 @@
+<div class="page-header">
+	<h1>Flapper <small>Store</small></h1>
+	<div ng-controller="StoreController as store">
+		<p>
+			{{greet}}
+		</p>
+		<div class="row">
+			<div ng-repeat="product in products | orderBy:'-price'">
+				<div class="col-md-4" ng-hide="product.soldOut">
+					<div class="card">
+					  <img class="card-img-top img-thumbnail" ng-src="{{product.image}}">
+					  <div class="card-block">
+					    <h4 class="card-title">
+					    	<strong>{{product.name}}</strong>
+					    	<span class="pull-right">
+					    		<strong>{{product.price | currency}}</strong>
+					    	</span>
+				    	</h4>
+					    <p class="card-text">{{product.description | limitTo:160}}</p>
+					    <ul class="list-inline">
+					    	<li><a href="#/stores/{{product.id}}" class="btn btn-primary">View</a></li>
+					    	<li><a href="#/stores/#}" class="btn btn-success" ng-show="product.canPurchase">Buy</a></li>
+					    	<li class="pull-right">
+					    		<h5><small>Added on <br />{{product.publishedAt | date:'MM/dd/yyyy'}}</small></h5>
+					    	</li>
+					    </ul>
+					  </div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+	</div>
+</div>
+
+
