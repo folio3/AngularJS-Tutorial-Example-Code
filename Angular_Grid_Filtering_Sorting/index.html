@@ -1,0 +1,54 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>folio3 | Filtering, Sorting, and Paging in Angular JS</title>
+        <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+        <link href="css/main.css" rel="stylesheet" type="text/css"> 
+        <script src="js/angular.min.js"></script>
+        <script src="js/app.js"></script>
+        <script src="js/lib/dirPagination.js"></script>
+        <script src="js/controllers/grid.js"></script>
+    </head>
+    <body ng-app="GridApp">
+    <div ng-controller="GridController" class="container">
+        <h2>Filtering, Sorting, and Paging in Angular JS</h2>
+        <hr>
+        <div class="form-group">
+            <label class="sr-only">Search:</label>
+            <input class="form-control" type="text" ng-model="queryText" placeholder="Search">
+        </div>
+        
+        <h3 ng-show="queryText">Showing results for: {{queryText}}</h3>
+
+        <div class="grid">
+          <table>
+            <tr>
+                <td ng-click="sort('name')">Name
+                    <span class="glyphicon sort-icon" ng-show="sortKey=='name'" ng-class="{'glyphicon-chevron-up':sortReverse,'glyphicon-chevron-down':!sortReverse}"></span>
+                </td>
+                <td ng-click="sort('age')">Age
+                    <span class="glyphicon sort-icon" ng-show="sortKey=='age'" ng-class="{'glyphicon-chevron-up':sortReverse,'glyphicon-chevron-down':!sortReverse}"></span>
+                </td>
+                <td ng-click="sort('gender')">Gender
+                    <span class="glyphicon sort-icon" ng-show="sortKey=='gender'" ng-class="{'glyphicon-chevron-up':sortReverse,'glyphicon-chevron-down':!sortReverse}"></span>
+                </td>
+                <td ng-click="sort('company')">Company
+                    <span class="glyphicon sort-icon" ng-show="sortKey=='company'" ng-class="{'glyphicon-chevron-up':sortReverse,'glyphicon-chevron-down':!sortReverse}"></span>
+                </td>
+            </tr>
+            <tr dir-paginate="person in people | filter: queryText | orderBy:sortKey:sortReverse | itemsPerPage: itemsPerPage" pagination-id="people">
+                <td>{{person.name}}</td>
+                <td>{{person.age}}</td>
+                <td>{{person.gender}}</td>
+                <td>{{person.company}}</td>
+            </tr>
+          </table>
+        </div>
+        <dir-pagination-controls pagination-id="people" class="pull-right"></dir-pagination-controls>
+
+    </div>
+    </body>
+</html>
+
